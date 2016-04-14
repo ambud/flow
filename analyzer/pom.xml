@@ -25,5 +25,10 @@
 			<artifactId>dropwizard-core</artifactId>
 			<version>0.9.2</version>
 		</dependency>
+		<dependency>
+			<groupId>com.srotya.flow</groupId>
+			<artifactId>collector</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 	</dependencies>
 </project>

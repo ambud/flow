@@ -1,5 +1,5 @@
 /**
- * Copyright 2013 Ambud Sharma
+ * Copyright 2016 Ambud Sharma
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,6 +18,9 @@ package com.srotya.flow.analyzer;
 
 import io.dropwizard.Configuration;
 
+/**
+ * @author ambudsharma
+ */
 public class FlowConfiguration extends Configuration {
 
 }

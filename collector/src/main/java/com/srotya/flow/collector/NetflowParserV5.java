@@ -48,7 +48,6 @@ public class NetflowParserV5 {
 			sc.receive(pkt);
 			ByteBuffer buf = ByteBuffer.wrap(pkt.getData()).order(ByteOrder.BIG_ENDIAN);
 			for (int i = 0; i < pkt.getLength(); i++) {
-				System.out.print(pkt.getData()[i] + " ");
 				fos.write(pkt.getData()[i]);
 			}
 			fos.flush();
@@ -62,7 +61,6 @@ public class NetflowParserV5 {
 			header.setEngineType(buf.get());
 			header.setEngineId(buf.get());
 			header.setSampleInterval(buf.getShort());
-			System.out.println(header);
 			for (int i = 0; i < header.getCount(); i++) {
 				NetflowRecord record = new NetflowRecord();
 				record.setSrcAddr(buf.getInt());
