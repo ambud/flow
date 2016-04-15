@@ -48,6 +48,7 @@ public class NetflowRecord implements Serializable {
 	private byte srcMask;
 	private byte dstMask;
 	private short pad2;
+	private NetflowHeader headerRef;
 
 	/**
 	 * @return the srcAddr
@@ -347,6 +348,20 @@ public class NetflowRecord implements Serializable {
 	 */
 	public void setPad2(short pad2) {
 		this.pad2 = pad2;
+	}
+
+	/**
+	 * @return the headerRef
+	 */
+	public NetflowHeader getHeaderRef() {
+		return headerRef;
+	}
+
+	/**
+	 * @param headerRef the headerRef to set
+	 */
+	public void setHeaderRef(NetflowHeader headerRef) {
+		this.headerRef = headerRef;
 	}
 
 	/*
