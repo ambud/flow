@@ -20,6 +20,8 @@ import io.dropwizard.Application;
 import io.dropwizard.setup.Environment;
 
 /**
+ * Entry point for flow analyzer application
+ * 
  * @author ambudsharma
  */
 public class FlowAnalyzer extends Application<FlowConfiguration> {
