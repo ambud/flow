@@ -17,6 +17,8 @@
 package com.srotya.flow.analyzer;
 
 import io.dropwizard.Application;
+import io.dropwizard.assets.AssetsBundle;
+import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 
 /**
@@ -25,13 +27,19 @@ import io.dropwizard.setup.Environment;
  * @author ambudsharma
  */
 public class FlowAnalyzer extends Application<FlowConfiguration> {
-	
+
 	public static void main(String[] args) throws Exception {
 		new FlowAnalyzer().run(args);
 	}
 
 	@Override
+	public void initialize(Bootstrap<FlowConfiguration> bootstrap) {
+		super.initialize(bootstrap);
+		bootstrap.addBundle(new AssetsBundle("/app", "/", "index.html"));
+	}
+
+	@Override
 	public void run(FlowConfiguration conf, Environment env) throws Exception {
 	}
-	
+
 }

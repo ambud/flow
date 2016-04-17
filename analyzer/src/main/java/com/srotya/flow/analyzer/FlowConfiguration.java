@@ -16,6 +16,8 @@
  */
 package com.srotya.flow.analyzer;
 
+import javax.validation.constraints.NotNull;
+
 import io.dropwizard.Configuration;
 
 /**
@@ -23,4 +25,22 @@ import io.dropwizard.Configuration;
  */
 public class FlowConfiguration extends Configuration {
 
+	@NotNull
+	private String name;
+
+	/**
+	 * @return the name
+	 */
+	
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+	
 }
