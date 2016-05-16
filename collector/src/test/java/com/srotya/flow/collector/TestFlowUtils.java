@@ -22,7 +22,6 @@ import org.ambud.marauder.commons.NetworkUtils;
 import org.junit.Assert;
 import org.junit.Test;
 
-
 /**
  * Unit tests for flow utils
  * 
@@ -35,17 +34,40 @@ public class TestFlowUtils {
 		String sip = "192.168.1.";
 		String dip = "192.162.0.";
 		Random random = new Random();
-		
+
 		for (int i = 0; i < 10000; i++) {
 			int src = NetworkUtils.stringIPtoInt(sip + random.nextInt(255));
 			int dst = NetworkUtils.stringIPtoInt(dip + random.nextInt(255));
-			short sport = (short)random.nextInt(32000);
-			short dport = (short)random.nextInt(32000);
+			short sport = (short) random.nextInt(32000);
+			short dport = (short) random.nextInt(32000);
 			byte proto = 4;
 			long hash1 = FlowUtils.flowHash(src, dst, sport, dport, proto);
 			long hash2 = FlowUtils.flowHash(dst, src, dport, sport, proto);
 			Assert.assertEquals(hash1, hash2);
-		} 
+		}
 	}
-	
+
+	@Test
+	public void testFlowHashNegative() {
+		String sip = "192.168.1.";
+		String dip = "192.162.0.";
+		Random random = new Random();
+
+		for (int i = 0; i < 10000; i++) {
+			int src = NetworkUtils.stringIPtoInt(sip + random.nextInt(255));
+			int dst = NetworkUtils.stringIPtoInt(dip + random.nextInt(255));
+			short sport = (short) random.nextInt(32000);
+			short dport = (short) random.nextInt(32000);
+			byte proto = 6;
+			long hash1 = FlowUtils.flowHash(src, dst, sport, dport, proto);
+			long hash2 = FlowUtils.flowHash(dst, src, dport, sport, proto);
+			Assert.assertEquals(hash1, hash2);
+			hash2 = FlowUtils.flowHash(src, dst, dport, sport, proto);
+			// Assert.assertNotEquals(hash1, hash2);
+			if ((hash1 == hash2)) {
+//				System.out.println("Failed:" + (hash1 == hash2)+"\t"+counter);
+			}
+		}
+	}
+
 }

@@ -1,0 +1,67 @@
+<dom-module id="flow-table"> <template>
+<style>
+table {
+	width: 100%;
+}
+
+td {
+	text-align: center
+}
+</style>
+<div>
+	<!-- 	<table border="1" rules="rows" frame="hsides"> -->
+	<!-- 		<tr> -->
+	<!-- 			<th>Source IP</th> -->
+	<!-- 			<th>Destination IP</th> -->
+	<!-- 			<th>Source Port</th> -->
+	<!-- 			<th>Destination Port</th> -->
+	<!-- 			<th>Protocol</th> -->
+	<!-- 		</tr> -->
+	<!-- 		<template is="dom-repeat" items="{{data}}"> -->
+	<!-- 		<tr> -->
+	<!-- 			<td>{{item.ipOneString}}</td> -->
+	<!-- 			<td>{{item.ipTwoString}}</td> -->
+	<!-- 			<td>{{item.portOne}}</td> -->
+	<!-- 			<td>{{item.portTwo}}</td> -->
+	<!-- 			<td>{{item.proto}}</td> -->
+	<!-- 		</tr> -->
+	<!-- 		</template> -->
+	<!-- 	</table> -->
+	<paper-listbox> 
+		<paper-item>
+	<div style="width: 100%; margin: 0 auto; padding-left: 10%">
+		<div style="float: left; width: 30%">Source</div>
+		<div style="float: left; width: 30%">Destination</div>
+		<div style="float: left; width: 20%">Protocol</div>
+		<div style="float: left; width: 20%">Summary</div>
+	</div>
+	</paper-listbox>
+	<paper-listbox> <template is="dom-repeat"
+		items="{{data}}"> <paper-item>
+	<div style="width: 100%; margin: 0 auto; padding-left: 10%">
+		<div style="float: left; width: 30%">{{item.ipOneString}}:{{item.portOne}}</div>
+		<div style="float: left; width: 30%">{{item.ipTwoString}}:{{item.portTwo}}</div>
+		<div style="float: left; width: 20%">{{item.proto}}</div>
+		<div style="float: left; width: 20%">Sparkline</div>
+	</div>
+	</paper-item> </template> </paper-listbox>
+	<div>
+		Flow Charts
+	</div>
+</div>
+<iron-ajax auto url="/api/flow/records" handle-as="json"
+	last-response="{{data}}" debounce-duration="300"></iron-ajax> </template> <script>
+		Polymer({
+			is : 'flow-table',
+			properties : {
+				data : {
+					type : Object,
+					notify : true,
+					observer : '_handleResponse'
+				}
+			},
+			_handleResponse : function(newVal, oldValue) {
+				console.log(newVal)
+			}
+		});
+	</script> </dom-module>

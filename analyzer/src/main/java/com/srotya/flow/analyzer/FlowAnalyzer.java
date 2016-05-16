@@ -16,6 +16,8 @@
  */
 package com.srotya.flow.analyzer;
 
+import com.srotya.flow.analyzer.endpoints.FlowEndpoint;
+
 import io.dropwizard.Application;
 import io.dropwizard.assets.AssetsBundle;
 import io.dropwizard.setup.Bootstrap;
@@ -40,6 +42,7 @@ public class FlowAnalyzer extends Application<FlowConfiguration> {
 
 	@Override
 	public void run(FlowConfiguration conf, Environment env) throws Exception {
+		env.jersey().register(FlowEndpoint.class);
 	}
 
 }

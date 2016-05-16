@@ -21,18 +21,21 @@ package com.srotya.flow.collector;
  */
 public class FlowUtils {
 
+	private static final int SHIFT_NUM = 32;
+	private static final int MAGIC_PRIME = 51;
+	private static final int MAGIC_PRIME2 = 17;
+
 	private FlowUtils() {
 	}
-	
+
 	/**
-	 * A reversible hash that should result in the same hash value for a pair
-	 * of IP address and port numbers where position doesn't matter. 
-	 * <br>
-	 * This hash can be used to classify packets that belong to the same flow together.
-	 * <br>
-	 * Logic: XOR creates reversible hash and OR just concatenates the different parts 
-	 * that identify a flow. Multiplication with a prime number creates sparseness and removes
-	 * collision that can happen due to bit flips.
+	 * A reversible hash that should result in the same hash value for a pair of
+	 * IP address and port numbers where position doesn't matter. <br>
+	 * This hash can be used to classify packets that belong to the same flow
+	 * together. <br>
+	 * Logic: XOR creates reversible hash and OR just concatenates the different
+	 * parts that identify a flow. Multiplication with a prime number creates
+	 * sparseness and removes collision that can happen due to bit flips.
 	 * 
 	 * @param src
 	 * @param dst
@@ -41,8 +44,19 @@ public class FlowUtils {
 	 * @return hashForFlow
 	 */
 	public static long flowHash(int src, int dst, short sport, short dport, byte proto) {
-		return ((long) (src * 31 ^ dst * 31) << 32) | (sport * 13 ^ dport * 13) | proto;
+//		return ((((long) src) | sport * MAGIC_PRIME2) * MAGIC_PRIME ^ (((long) dst) | dport * MAGIC_PRIME2) * MAGIC_PRIME) | proto;
+		return flowHashHighEntropy(src, dst, sport, dport, proto);
 	}
-	
-	
+
+	/**
+	 * @param src
+	 * @param dst
+	 * @param sport
+	 * @param dport
+	 * @param proto
+	 * @return hashForFlow
+	 */
+	public static long flowHashHighEntropy(int src, int dst, short sport, short dport, byte proto) {
+		return (((long) (src * MAGIC_PRIME ^ dst * MAGIC_PRIME) << SHIFT_NUM) | ((sport * MAGIC_PRIME2) ^ (dport * MAGIC_PRIME2)) | proto);
+	}
 }
